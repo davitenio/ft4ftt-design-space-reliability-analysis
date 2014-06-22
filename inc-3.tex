@@ -254,13 +254,14 @@ shows the graph modeling this system.
 
 \begin{sagesilent}
 
-SLAVE_COUNT = 2
-SWITCH_COUNT = 1
+SLAVE_COUNT = 3
 
+switch = "$w_{}$"
 slaves = ["$s_{}$".format(i) for i in range(1, SLAVE_COUNT + 1)]
-switches = ["$w_{}$".format(i) for i in range(1, SWITCH_COUNT + 1)]
+links = ["$l_{}$".format(i) for i in range(1, SLAVE_COUNT + 1)]
 simplex_switch = Graph()
-simplex_switch.add_edges([(s, w) for s in slaves for w in switches])
+simplex_switch.add_edges(zip(slaves, links))
+simplex_switch.add_edges([(l, switch) for l in links])
 
 plot_generator = graph_plot_generator([simplex_switch], vertex_size=6000,
     font_size=35, edge_thickness=5, border_style_default="")
@@ -274,6 +275,8 @@ next(plot_generator)
 \caption{Graph corresponding to the simplex switch example.}
 \label{fig:simplex-switch}
 \end{figure}
+
+\sagetexpause
 
 \begin{sagesilent}
 
